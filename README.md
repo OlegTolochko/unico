@@ -26,7 +26,7 @@ This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
 2. Create a conda environment with all dependencies:
 
    ```bash
-   # This creates the `unico` env, activates it, and builds CUDA extensions.
+   # This creates and activates the `unico` env, and builds CUDA extensions
    . install.sh
    ```
 
@@ -39,7 +39,7 @@ This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
 
   ```bash
   # Replace device IDs with your own
-  # Override `MASTER_PORT` to avoid a port collision.
+  # Override `MASTER_PORT` to avoid collision
   CUDA_VISIBLE_DEVICES=0,1 ./scripts/train_ddp.sh experiment=abcmulti
   ```
 
