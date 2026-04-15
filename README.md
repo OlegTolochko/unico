@@ -73,12 +73,12 @@ This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
 
 ## 📁 Datasets
 
-The paper uses three datasets: *ABC-multi* (`abcmulti`), *ABC-plane* (`abcplane`), and *BuildingNL* (`buildingnl`). For quick testing, a small subset of *ABC-multi* is included under `data/abcmulti/`.
+We provide preprocessed versions of the three datasets used in the paper: [ABC-multi](https://huggingface.co/datasets/chenzhaiyu/abcmulti) (`abcmulti`), [ABC-plane](https://huggingface.co/datasets/chenzhaiyu/abcplane) (`abcplane`), and [BuildingNL](https://huggingface.co/datasets/chenzhaiyu/buildingnl) (`buildingnl`). For quick testing, a small subset of ABC-multi is included under `data/abcmulti/`.
 
 ## 🚧 TODOs
 
 - [x] Code release
-- [ ] Datasets
+- [x] Datasets
 - [ ] Demo
 
 ## 🎓 Citation
