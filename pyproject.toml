@@ -1,0 +1,40 @@
+[project]
+name = "unico"
+version = "0.1.0"
+description = "UNICO point cloud completion and primitive decomposition"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "torch==2.10.0",
+    "torchvision==0.25.0",
+    "torchaudio==2.10.0",
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "easydict",
+    "pyyaml",
+    "safetensors",
+    "timm",
+    "einops",
+    "h5py",
+    "open3d",
+    "tensorboardx",
+    "hydra-core",
+    "omegaconf",
+    "setuptools",
+    "wheel",
+    "ninja",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }
+torchaudio = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true

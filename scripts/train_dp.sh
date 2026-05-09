@@ -6,7 +6,7 @@ fi
 
 export LOCAL_RANK=0
 
-UNICO_USE_HELPER_SCRIPT=1 python3 main.py "$@"
+UNICO_USE_HELPER_SCRIPT=1 uv run python main.py "$@"
 
 # Usage:
 # CUDA_VISIBLE_DEVICES=0,1 ./scripts/train_dp.sh

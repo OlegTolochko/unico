@@ -96,7 +96,11 @@ def main(cfg: DictConfig) -> None:
     if cfg.runtime.distributed:
         assert local_rank == torch.distributed.get_rank()
 
-    run_net(cfg, train_writer, val_writer, logger_name=log_name)
+    try:
+        run_net(cfg, train_writer, val_writer, logger_name=log_name)
+    finally:
+        if torch.distributed.is_available() and torch.distributed.is_initialized():
+            torch.distributed.destroy_process_group()
 
 
 if __name__ == "__main__":

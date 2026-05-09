@@ -127,6 +127,8 @@ dmypy.json
 runs/
 checkpoints/
 outputs/
+output/
+evaluation/visual/
 logs/
 # data/
 

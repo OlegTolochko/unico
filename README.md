@@ -15,7 +15,7 @@ UniCo is a structured shape completion model that, given a partial scan, jointly
 
 ## ⚙️ Setup
 
-This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
+This repository uses uv for setup. The uv environment installs CUDA-enabled PyTorch wheels from the official PyTorch CUDA 13 index and builds the local CUDA extensions.
 
 1. Clone the repository:
 
@@ -23,11 +23,11 @@ This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
    git clone https://github.com/complete3d/unico.git && cd unico && git lfs pull
    ```
 
-2. Create a conda environment with all dependencies:
+2. Create a uv environment with all dependencies:
 
    ```bash
-   # This creates and activates the `unico` env, and builds CUDA extensions
-   . install.sh
+   # This creates .venv and builds CUDA extensions
+   bash install.sh
    ```
 
 
@@ -38,7 +38,7 @@ This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
   **DistributedDataParallel (DDP)**:
 
   ```bash
-  # Replace device IDs with your own
+  # Use only GPU IDs that are present in `nvidia-smi --list-gpus`
   # Override `MASTER_PORT` to avoid collision
   CUDA_VISIBLE_DEVICES=0,1 ./scripts/train_ddp.sh experiment=abcmulti
   ```
@@ -46,8 +46,7 @@ This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
   **DataParallel (DP)**:
 
   ```bash
-  # Replace device IDs with your own
-  CUDA_VISIBLE_DEVICES=0,1 ./scripts/train_dp.sh experiment=abcmulti
+  CUDA_VISIBLE_DEVICES=0 ./scripts/train_dp.sh experiment=abcmulti
   ```
 
 * TensorBoard logs are written under `output/<experiment>/tensorboard`:
@@ -65,6 +64,14 @@ This repository is tested with Ubuntu 22.04, Python 3.9, and PyTorch 1.12.1.
   # Replace device IDs with your own
   CUDA_VISIBLE_DEVICES=0 ./scripts/infer.sh experiment=abcmulti evaluate.mode=easy evaluate.ckpt_path=ckpt/ckpt-best.pth
   ```
+
+* Convert UniCo `.seg` predictions into standard visual files:
+
+  ```bash
+  uv run python tools/export_visuals.py evaluation --out-dir evaluation/visual
+  ```
+
+  The converter writes colored predicted point clouds as `.ply`, primitive proxy meshes as `.obj`, and combined overlay `.ply` files for 3D viewers. Open `*_overlay.ply` to see primitive faces plus tiny mesh glyphs for the predicted points in one file. If the overlay points are too small or too large in your viewer, rerun with `--point-radius <value>`.
 
 * Primitive assembly uses [PrimFit](https://github.com/xiaowuga/PrimFit) for ABC-multi, and [PolyFit](https://github.com/LiangliangNan/PolyFit), [KSR](https://www.cgal.org/2024/05/29/Kinetic_surface_reconstruction/), and [COMPOD](https://github.com/raphaelsulzer/compod) for plane-only assembly. Sample outputs are provided under `evaluation/`:
   - `VG`: vertex groups for primitives.
